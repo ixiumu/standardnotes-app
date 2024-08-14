@@ -7,8 +7,8 @@ import { UserRolesChangedEvent } from '@standardnotes/domain-events'
 import { ExperimentalFeatures, FindNativeFeature, NativeFeatureIdentifier } from '@standardnotes/features'
 import {
   SNFeatureRepo,
-  FeatureRepoContent,
-  FillItemContent,
+  // FeatureRepoContent,
+  // FillItemContent,
   PayloadEmitSource,
   ComponentInterface,
   DecryptedItemInterface,
@@ -46,7 +46,7 @@ import {
   WebSocketsService,
 } from '@standardnotes/services'
 
-import { MigrateFeatureRepoToOfflineEntitlementsUseCase } from './UseCase/MigrateFeatureRepoToOfflineEntitlements'
+// import { MigrateFeatureRepoToOfflineEntitlementsUseCase } from './UseCase/MigrateFeatureRepoToOfflineEntitlements'
 import { GetFeatureStatusUseCase } from './UseCase/GetFeatureStatus'
 import { SettingsClientInterface } from '../Settings/SettingsClientInterface'
 
@@ -55,12 +55,12 @@ export class FeaturesService
   implements FeaturesClientInterface, InternalEventHandlerInterface
 {
   private onlineRoles: string[] = []
-  private offlineRoles: string[] = []
+  private offlineRoles: string[] = ['PRO_USER']
   private enabledExperimentalFeatures: string[] = []
 
   private getFeatureStatusUseCase = new GetFeatureStatusUseCase(this.items)
 
-  private readonly PROD_OFFLINE_FEATURES_URL = 'https://api.standardnotes.com/v1/offline/features'
+  // private readonly PROD_OFFLINE_FEATURES_URL = 'https://api.standardnotes.com/v1/offline/features'
 
   constructor(
     private storage: StorageServiceInterface,
@@ -138,12 +138,15 @@ export class FeaturesService
   }
 
   initializeFromDisk(): void {
+    console.log('initializeFromDisk')
     this.onlineRoles = this.storage.getValue<string[]>(StorageKey.UserRoles, undefined, [])
-    this.offlineRoles = this.storage.getValue<string[]>(StorageKey.OfflineUserRoles, undefined, [])
+    // this.offlineRoles = this.storage.getValue<string[]>(StorageKey.OfflineUserRoles, undefined, [])
+    this.offlineRoles = ['PRO_USER']
     this.enabledExperimentalFeatures = this.storage.getValue(StorageKey.ExperimentalFeatures, undefined, [])
   }
 
   async handleEvent(event: InternalEventInterface): Promise<void> {
+    console.log('handleEvent')
     switch (event.type) {
       case ApiServiceEvent.MetaReceived: {
         if (!this.sync) {
@@ -228,41 +231,52 @@ export class FeaturesService
   }
 
   public async setOfflineFeaturesCode(code: string): Promise<SetOfflineFeaturesFunctionResponse> {
-    try {
-      const result = this.parseOfflineEntitlementsCode(code)
-
-      if (result instanceof ClientDisplayableError) {
-        return result
-      }
-
-      const offlineRepo = (await this.mutator.createItem(
-        ContentType.TYPES.ExtensionRepo,
-        FillItemContent({
-          offlineFeaturesUrl: result.featuresUrl,
-          offlineKey: result.extensionKey,
-          migratedToOfflineEntitlements: true,
-        } as FeatureRepoContent),
-        true,
-      )) as SNFeatureRepo
-
-      void this.sync.sync()
-
-      return this.downloadOfflineRoles(offlineRepo)
-    } catch (err) {
-      return new ClientDisplayableError(`${API_MESSAGE_FAILED_OFFLINE_ACTIVATION}, ${JSON.stringify(err)}`)
+    console.log('setOfflineFeaturesCode')
+    console.log(code)
+    if (code) {
+      return this.downloadOfflineRoles({} as SNFeatureRepo)
+    } else {
+      return new ClientDisplayableError(`${API_MESSAGE_FAILED_OFFLINE_ACTIVATION}`)
     }
+    // try {
+    //   const result = this.parseOfflineEntitlementsCode(code)
+
+    //   if (result instanceof ClientDisplayableError) {
+    //     return result
+    //   }
+
+    //   const offlineRepo = (await this.mutator.createItem(
+    //     ContentType.TYPES.ExtensionRepo,
+    //     FillItemContent({
+    //       offlineFeaturesUrl: result.featuresUrl,
+    //       offlineKey: result.extensionKey,
+    //       migratedToOfflineEntitlements: true,
+    //     } as FeatureRepoContent),
+    //     true,
+    //   )) as SNFeatureRepo
+
+    //   void this.sync.sync()
+
+    //   return this.downloadOfflineRoles(offlineRepo)
+    // } catch (err) {
+    //   return new ClientDisplayableError(`${API_MESSAGE_FAILED_OFFLINE_ACTIVATION}, ${JSON.stringify(err)}`)
+    // }
   }
 
   private getOfflineRepo(): SNFeatureRepo | undefined {
-    const repos = this.items.getItems(ContentType.TYPES.ExtensionRepo) as SNFeatureRepo[]
-    return repos.filter((repo) => repo.migratedToOfflineEntitlements)[0]
+    console.log('getOfflineRepo')
+    // const repos = this.items.getItems(ContentType.TYPES.ExtensionRepo) as SNFeatureRepo[]
+    // return repos.filter((repo) => repo.migratedToOfflineEntitlements)[0]
+    return {} as SNFeatureRepo
   }
 
   public hasOfflineRepo(): boolean {
+    console.log('hasOfflineRepo')
     return this.getOfflineRepo() != undefined
   }
 
   public async deleteOfflineFeatureRepo(): Promise<void> {
+    console.log('deleteOfflineFeatureRepo')
     const repo = this.getOfflineRepo()
 
     if (repo) {
@@ -272,6 +286,7 @@ export class FeaturesService
   }
 
   parseOfflineEntitlementsCode(code: string): OfflineSubscriptionEntitlements | ClientDisplayableError {
+    console.log('parseOfflineEntitlementsCode')
     try {
       const activationCodeWithoutSpaces = code.replace(/\s/g, '')
       const decodedData = this.crypto.base64Decode(activationCodeWithoutSpaces)
@@ -288,15 +303,18 @@ export class FeaturesService
   }
 
   private async downloadOfflineRoles(repo: SNFeatureRepo): Promise<SetOfflineFeaturesFunctionResponse> {
-    const result = await this.api.downloadOfflineFeaturesFromRepo({
-      repo,
-    })
+    console.log('downloadOfflineRoles')
+    // const result = await this.api.downloadOfflineFeaturesFromRepo({
+    //   repo,
+    // })
 
-    if (result instanceof ClientDisplayableError) {
-      return result
+    // if (result instanceof ClientDisplayableError) {
+    //   return result
+    // }
+
+    if (repo) {
+      this.setOfflineRoles(['PRO_USER'])
     }
-
-    this.setOfflineRoles(result.roles)
   }
 
   public async migrateFeatureRepoToUserSetting(featureRepos: SNFeatureRepo[] = []): Promise<void> {
@@ -305,15 +323,22 @@ export class FeaturesService
   }
 
   public async migrateFeatureRepoToOfflineEntitlements(featureRepos: SNFeatureRepo[] = []): Promise<void> {
-    const usecase = new MigrateFeatureRepoToOfflineEntitlementsUseCase(this.mutator)
-    const updatedRepos = await usecase.execute({ featureRepos, prodOfflineFeaturesUrl: this.PROD_OFFLINE_FEATURES_URL })
+    console.log('migrateFeatureRepoToOfflineEntitlements')
+    // const usecase = new MigrateFeatureRepoToOfflineEntitlementsUseCase(this.mutator)
+    // const updatedRepos = await usecase.execute({ featureRepos, prodOfflineFeaturesUrl: this.PROD_OFFLINE_FEATURES_URL })
 
-    if (updatedRepos.length > 0) {
-      await this.downloadOfflineRoles(updatedRepos[0])
-    }
+    // if (updatedRepos.length > 0) {
+    //   await this.downloadOfflineRoles(updatedRepos[0])
+    // }
 
-    for (const repo of featureRepos) {
-      await this.downloadOfflineRoles(repo)
+    // for (const repo of featureRepos) {
+    //   await this.downloadOfflineRoles(repo)
+    // }
+    if (featureRepos) {
+      const offlineRepo = this.getOfflineRepo()
+      if (offlineRepo) {
+        void this.downloadOfflineRoles(offlineRepo)
+      }
     }
   }
 
@@ -326,13 +351,14 @@ export class FeaturesService
   }
 
   public hasFirstPartyOfflineSubscription(): boolean {
-    const offlineRepo = this.getOfflineRepo()
-    if (!offlineRepo || !offlineRepo.content.offlineFeaturesUrl) {
-      return false
-    }
+    return true
+    // const offlineRepo = this.getOfflineRepo()
+    // if (!offlineRepo || !offlineRepo.content.offlineFeaturesUrl) {
+    //   return false
+    // }
 
-    const hasFirstPartyOfflineSubscription = offlineRepo.content.offlineFeaturesUrl === this.PROD_OFFLINE_FEATURES_URL
-    return hasFirstPartyOfflineSubscription || new URL(offlineRepo.content.offlineFeaturesUrl).hostname === 'localhost'
+    // const hasFirstPartyOfflineSubscription = offlineRepo.content.offlineFeaturesUrl === this.PROD_OFFLINE_FEATURES_URL
+    // return hasFirstPartyOfflineSubscription || new URL(offlineRepo.content.offlineFeaturesUrl).hostname === 'localhost'
   }
 
   async updateOnlineRolesWithNewValues(roles: string[]): Promise<void> {
