@@ -1,11 +1,12 @@
 name: Windows Release Workflow
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       channel:
         required: true
         type: string
+        default: prod
 
 jobs:
 
