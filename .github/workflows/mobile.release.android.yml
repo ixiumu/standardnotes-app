@@ -49,15 +49,10 @@ jobs:
         id: release-notes
         continue-on-error: true
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload
+        uses: actions/upload-artifact@v4.3.6
         with:
-          token: ${{ secrets.CI_PAT_TOKEN }}
-          tag_name: "@standardnotes/mobile@${{ env.PACKAGE_VERSION }}"
-          name: "Mobile ${{ env.PACKAGE_VERSION }}"
-          body: ${{ steps.release-notes.outputs.result }}
-          prerelease: true
-          draft: false
-          files: |
-            packages/mobile/android/app/build/outputs/bundle/prodRelease/app-prod-release.aab
-            packages/mobile/android/app/build/outputs/apk/prod/release/app-prod-release.apk
+          name: assets
+          path: |
+            packages/mobile/android/app/build/outputs/apk/prod/release/*.apk
+            packages/mobile/android/app/build/outputs/bundle/prodRelease/*.aab
