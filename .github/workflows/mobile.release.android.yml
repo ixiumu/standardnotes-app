@@ -1,4 +1,4 @@
-name: Mobile Release Production
+name: Android Release Production
 
 on:
   workflow_dispatch:

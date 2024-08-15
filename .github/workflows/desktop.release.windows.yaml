@@ -10,7 +10,7 @@ on:
 
 jobs:
 
-Windows:
+  Windows:
     runs-on: windows-latest
 
     defaults:
