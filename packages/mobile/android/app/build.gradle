@@ -88,20 +88,20 @@ android {
         missingDimensionStrategy 'store', 'play'
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-        }
-        release {
-            storeFile file('keystore.keystore')
-            keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
-            keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
-            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-        }
-    }
+    // signingConfigs {
+    //     debug {
+    //         storeFile file('debug.keystore')
+    //         storePassword 'android'
+    //         keyAlias 'androiddebugkey'
+    //         keyPassword 'android'
+    //     }
+    //     release {
+    //         storeFile file('keystore.keystore')
+    //         keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
+    //         keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+    //         storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+    //     }
+    // }
     productFlavors {
         dev {
             applicationIdSuffix ".dev"
@@ -112,13 +112,13 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
+            // signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            productFlavors.dev.signingConfig System.getenv('DETOX_CI') ? signingConfigs.debug : signingConfigs.release
-            productFlavors.prod.signingConfig System.getenv('DETOX_CI') ? signingConfigs.debug : signingConfigs.release
+            // productFlavors.dev.signingConfig System.getenv('DETOX_CI') ? signingConfigs.debug : signingConfigs.release
+            // productFlavors.prod.signingConfig System.getenv('DETOX_CI') ? signingConfigs.debug : signingConfigs.release
             proguardFile "${rootProject.projectDir}/../node_modules/detox/android/detox/proguard-rules-app.pro"
         }
     }
