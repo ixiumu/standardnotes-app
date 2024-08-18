@@ -292,8 +292,8 @@ const DisplayOptionsMenu: FunctionComponent<DisplayOptionsMenuProps> = ({
         <div className="flex items-center gap-1.5">
           <TabButton label="Global" mode="global" currentMode={currentMode} setCurrentMode={setCurrentMode} />
           <TabButton
-            label={selectedTag.title}
-            icon={selectedTag.iconString}
+            label={selectedTag.title.startsWith('#') ? selectedTag.title.substring(1) : selectedTag.title}
+            icon={(selectedTag.title.startsWith('#') ? selectedTag.iconString : 'folder') as IconType}
             mode="tag"
             currentMode={currentMode}
             setCurrentMode={setCurrentMode}

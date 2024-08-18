@@ -1,4 +1,4 @@
-import { SNTag } from '@standardnotes/snjs'
+import { IconType, SNTag } from '@standardnotes/snjs'
 import { observer } from 'mobx-react-lite'
 import { FunctionComponent, useCallback, useState } from 'react'
 import RootTagDropZone from './RootTagDropZone'
@@ -9,13 +9,21 @@ import { useListKeyboardNavigation } from '@/Hooks/useListKeyboardNavigation'
 
 type Props = {
   type: TagListSectionType
+  filter?: string
 }
 
-const TagsList: FunctionComponent<Props> = ({ type }: Props) => {
+const TagsList: FunctionComponent<Props> = ({ type, filter }: Props) => {
   const application = useApplication()
 
   const allTags =
-    type === 'all' ? application.navigationController.allLocalRootTags : application.navigationController.starredTags
+    type === 'all' ? application.navigationController.allLocalRootTags.filter(tag => {
+      if (filter === 'folder') {
+        return !tag.title.startsWith('#')
+      } else if (filter === 'tag') {
+        return tag.title.startsWith('#')
+      }
+      return true
+    }) : application.navigationController.starredTags
 
   const openTagContextMenu = useCallback(
     (x: number, y: number) => {
@@ -43,11 +51,12 @@ const TagsList: FunctionComponent<Props> = ({ type }: Props) => {
   })
 
   if (allTags.length === 0) {
+    const tagType = filter ? filter + "s" : "tags or folders"
     return (
       <div className="px-4 text-base opacity-50 lg:text-sm">
         {application.navigationController.isSearching
           ? 'No tags found. Try a different search.'
-          : 'No tags or folders. Create one using the add button above.'}
+          : `No ${tagType} or folders. Create one using the add button above.`}
       </div>
     )
   }
@@ -70,7 +79,7 @@ const TagsList: FunctionComponent<Props> = ({ type }: Props) => {
           )
         })}
       </div>
-      {type === 'all' && <RootTagDropZone tagsState={application.navigationController} />}
+      {type === 'all' && filter === 'tag' && <RootTagDropZone tagsState={application.navigationController} />}
     </>
   )
 }

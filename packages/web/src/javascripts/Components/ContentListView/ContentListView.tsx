@@ -147,7 +147,7 @@ const ContentListView = forwardRef<HTMLDivElement, Props>(
       innerRef,
     ])
 
-    const icon = selectedTag?.iconString
+    const icon = selectedTag?.title.startsWith('#') ? selectedTag?.iconString : 'folder'
 
     const isFilesSmartView = useMemo(() => navigationController.isInFilesView, [navigationController.isInFilesView])
 
@@ -307,7 +307,7 @@ const ContentListView = forwardRef<HTMLDivElement, Props>(
             {selectedTag && (
               <ContentListHeader
                 application={application}
-                panelTitle={panelTitle}
+                panelTitle={panelTitle.startsWith('#') ? panelTitle.substring(1) : panelTitle}
                 icon={icon}
                 addButtonLabel={addButtonLabel}
                 addNewItem={addNewItem}

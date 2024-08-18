@@ -141,6 +141,8 @@ const LinkedItemBubble = ({
     )
   }
 
+  const linkBubble = getItemTitleInContextOfLinkBubble(link.item)
+
   return (
     <button
       ref={(el) => (ref.current = el as HTMLElement)}
@@ -163,7 +165,7 @@ const LinkedItemBubble = ({
           {link.type === 'linked-by' && link.item.content_type !== ContentType.TYPES.Tag && (
             <span className={!isBidirectional ? 'hidden group-focus:block' : ''}>Linked By:</span>
           )}
-          {getItemTitleInContextOfLinkBubble(link.item)}
+          {linkBubble.startsWith('#') ? linkBubble.substring(1) : linkBubble}
         </span>
       </span>
       {showUnlinkButton && !readonly && (

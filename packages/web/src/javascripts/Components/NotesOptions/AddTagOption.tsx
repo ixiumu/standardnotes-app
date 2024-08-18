@@ -87,7 +87,7 @@ const AddTagOption: FunctionComponent<Props> = ({
             >
               {tag.iconString && (
                 <Icon
-                  type={tag.iconString as IconType}
+                  type={(tag.title.startsWith('#') ? tag.iconString : 'folder') as IconType}
                   size={'custom'}
                   className={'ml-0.5 mr-1.5 h-7 w-7 text-2xl text-neutral lg:h-6 lg:w-6 lg:text-lg'}
                 />

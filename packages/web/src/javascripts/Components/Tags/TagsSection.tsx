@@ -5,6 +5,8 @@ import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import TagsSectionAddButton from './TagsSectionAddButton'
 import TagsSectionTitle from './TagsSectionTitle'
 import { useApplication } from '../ApplicationProvider'
+import { TAG_FOLDERS_FEATURE_TOOLTIP } from '@/Constants/Constants'
+import StyledTooltip from '../StyledTooltip/StyledTooltip'
 
 const TagsSection: FunctionComponent = () => {
   const application = useApplication()
@@ -32,10 +34,10 @@ const TagsSection: FunctionComponent = () => {
     if (
       await application.alerts.confirm(
         '<i>Introducing native, built-in nested tags without requiring the legacy Folders extension.</i><br/></br> ' +
-          " To get started, we'll need to migrate any tags containing a dot character to the new system.<br/></br> " +
-          ' This migration will convert any tags with dots appearing in their name into a natural' +
-          ' hierarchy that is compatible with the new nested tags feature.' +
-          ' Running this migration will remove any "." characters appearing in tag names.',
+        " To get started, we'll need to migrate any tags containing a dot character to the new system.<br/></br> " +
+        ' This migration will convert any tags with dots appearing in their name into a natural' +
+        ' hierarchy that is compatible with the new nested tags feature.' +
+        ' Running this migration will remove any "." characters appearing in tag names.',
         'New: Folders to Nested Tags',
         'Run Migration',
       )
@@ -68,6 +70,34 @@ const TagsSection: FunctionComponent = () => {
       <section>
         <div className={'section-title-bar'}>
           <div className="section-title-bar-header">
+            <div className="title text-base md:text-sm">
+              <span className="font-bold">Folders</span>
+            </div>
+            {!application.navigationController.isSearching && (
+              <TagsSectionAddButton tags={application.navigationController} features={application.featuresController} />
+            )}
+          </div>
+        </div>
+        <TagsList type="all" filter="folder" />
+      </section>
+
+      <section>
+        <div className={'section-title-bar'}>
+          <div className="section-title-bar-header">
+            <div className="title text-base md:text-sm">
+              <span className="font-bold">Tags</span>
+            </div>
+            {!application.navigationController.isSearching && (
+              <TagsSectionAddButton tags={application.navigationController} features={application.featuresController} />
+            )}
+          </div>
+        </div>
+        <TagsList type="all" filter="tag" />
+      </section>
+
+      {/* <section>
+        <div className={'section-title-bar'}>
+          <div className="section-title-bar-header">
             <TagsSectionTitle
               features={application.featuresController}
               hasMigration={hasMigration}
@@ -79,7 +109,7 @@ const TagsSection: FunctionComponent = () => {
           </div>
         </div>
         <TagsList type="all" />
-      </section>
+      </section> */}
     </>
   )
 }

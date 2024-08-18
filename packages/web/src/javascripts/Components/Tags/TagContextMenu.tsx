@@ -4,7 +4,7 @@ import Icon from '@/Components/Icon/Icon'
 import Menu from '@/Components/Menu/Menu'
 import MenuItem from '@/Components/Menu/MenuItem'
 import { usePremiumModal } from '@/Hooks/usePremiumModal'
-import { SNTag, VectorIconNameOrEmoji, DefaultTagIconName } from '@standardnotes/snjs'
+import { IconType, SNTag, VectorIconNameOrEmoji, DefaultTagIconName } from '@standardnotes/snjs'
 import { NavigationController } from '@/Controllers/Navigation/NavigationController'
 import HorizontalSeparator from '../Shared/HorizontalSeparator'
 import { formatDateForContextMenu } from '@/Utils/DateUtils'
@@ -127,7 +127,7 @@ const TagContextMenu = ({ navigationController, isEntitledToFolders, selectedTag
         <IconPicker
           key={selectedTag.uuid}
           onIconChange={handleIconChange}
-          selectedValue={selectedTag.iconString}
+          selectedValue={(selectedTag.title.startsWith('#') ? selectedTag.iconString : 'folder') as IconType}
           platform={application.platform}
           className={'py-1.5 md:px-3'}
           useIconGrid={true}

@@ -13,7 +13,7 @@ export function getIconForItem(item: DecryptedItemInterface, application: WebApp
     const icon = getIconForFileType(item.mimeType)
     return [icon, 'text-info']
   } else if (item instanceof SNTag) {
-    return [item.iconString as IconType, 'text-info']
+    return [(item.title.startsWith('#') ? item.iconString : 'folder') as IconType, 'text-info']
   }
 
   throw new Error('Unhandled case in getItemIcon')

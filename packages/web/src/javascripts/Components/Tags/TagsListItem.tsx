@@ -320,7 +320,7 @@ export const TagsListItem: FunctionComponent<Props> = observer(
           <div className="tag-info" title={title}>
             <div onClick={selectCurrentTag} className={'tag-icon draggable mr-2'}>
               <Icon
-                type={tag.iconString as IconType}
+                type={(tag.title.startsWith('#') ? tag.iconString : 'folder') as IconType}
                 className={classNames(
                   'cursor-pointer group-hover:text-text',
                   isSelected ? 'text-info' : 'text-neutral',
@@ -351,7 +351,7 @@ export const TagsListItem: FunctionComponent<Props> = observer(
                   }
                   id={`react-tag-${tag.uuid}-${type}`}
                 >
-                  {title}
+                  {(title.startsWith('#') ? title.substring(1) : title)}
                 </div>
               </>
             )}

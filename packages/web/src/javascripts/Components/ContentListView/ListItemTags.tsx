@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react'
 import Icon from '@/Components/Icon/Icon'
 import { DisplayableListItemProps } from './Types/DisplayableListItemProps'
 import { ListableContentItem } from './Types/ListableContentItem'
+import { IconType } from '@standardnotes/snjs'
 
 type Props = {
   hideTags: boolean
@@ -20,8 +21,8 @@ const ListItemTags: FunctionComponent<Props> = ({ hideTags, tags }) => {
           className="inline-flex items-center rounded bg-passive-4-opacity-variant px-1.5 py-1 text-foreground"
           key={tag.uuid}
         >
-          <Icon type={tag.iconString} className="mr-1 text-passive-1" size="small" />
-          <span>{tag.title}</span>
+          <Icon type={(tag.title.startsWith('#') ? tag.iconString : 'folder') as IconType} className="mr-1 text-passive-1" size="small" />
+          <span>{(tag.title.startsWith('#') ? tag.title.substring(1) : tag.title)}</span>
         </span>
       ))}
     </div>
