@@ -32,6 +32,7 @@ export enum PermissionName {
   DeprecatedTaskEditor = 'editor:task-editor',
   ThemeDynamic = 'theme:dynamic',
   TitaniumTheme = 'theme:titanium',
+  GitHubTheme = 'theme:github',
   TokenVaultEditor = 'editor:token-vault',
   TwoFactorAuth = 'server:two-factor-auth',
   UniversalSecondFactor = 'server:universal-second-factor',

@@ -110,5 +110,20 @@ export function themes(): ThemeFeatureDescription[] {
     },
   })
 
-  return [midnight, futura, solarizedDark, autobiography, dark, proton, titanium, dynamic]
+  const github: ThemeFeatureDescription = FillThemeComponentDefaults({
+    availableInRoles: [RoleName.NAMES.CoreUser, RoleName.NAMES.PlusUser, RoleName.NAMES.ProUser],
+    name: 'GitHub',
+    identifier: NativeFeatureIdentifier.TYPES.GitHubTheme,
+    permission_name: PermissionName.GitHubTheme,
+    clientControlled: true,
+    isDark: true,
+    dock_icon: {
+      type: 'circle',
+      background_color: '#238636',
+      foreground_color: '#ffffff',
+      border_color: '#238636',
+    },
+  })
+
+  return [midnight, futura, solarizedDark, autobiography, dark, proton, titanium, dynamic, github]
 }

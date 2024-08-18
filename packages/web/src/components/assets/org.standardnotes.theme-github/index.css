@@ -1,0 +1,256 @@
+:root {
+  --background: #0e1117;
+  --secondary-background: #171b22;
+  --current-line: #1d2125;
+  --foreground: #e6edf3;
+  --comment: #6272a4;
+  --link: #4493f8;
+  --grey: #8e96a0;
+  --red: #ff7b72;
+  --orange: #ffb86c;
+  --green: #238636;
+  --pink: #ff79c6;
+  --purple: #4493f8;
+  --cyan: #39c5cf;
+  --yellow: #d29922;
+  --black: #484f58;
+  --scrollbar: #686868;
+  --danger-background: #b62324;
+  --darker-background: rgb(25, 26, 33);
+  --darker-background-border: #31363d;
+
+  --sn-stylekit-accessory-tint-color-1: var(--purple);
+  --sn-stylekit-accessory-tint-color-2: var(--pink);
+  --sn-stylekit-accessory-tint-color-3: var(--orange);
+  --sn-stylekit-accessory-tint-color-4: var(--cyan);
+  --sn-stylekit-accessory-tint-color-5: var(--green);
+  --sn-stylekit-accessory-tint-color-6: var(--yellow);
+  --highlight-color: var(--comment);
+  --sn-component-foreground-color: var(--foreground);
+  --sn-component-background-color: var(--background);
+  --sn-component-foreground-highlight-color: var(--highlight-color);
+  --sn-component-outer-border-color: var(--comment);
+  --sn-component-inner-border-color: var(--foreground);
+  --sn-stylekit-shadow-color: var(--comment);
+  --sn-stylekit-info-color: var(--purple);
+  /* button link */
+  --sn-stylekit-info-contrast-color: var(--foreground);
+  --sn-stylekit-neutral-color: var(--grey);
+  /* icon */
+  --sn-stylekit-neutral-contrast-color: var(--foreground);
+  --sn-stylekit-success-color: var(--green);
+  --sn-stylekit-success-contrast-color: var(--background);
+  --sn-stylekit-warning-color: var(--orange);
+  --sn-stylekit-warning-contrast-color: var(--background);
+  --sn-stylekit-danger-color: var(--red);
+  --sn-stylekit-danger-contrast-color: var(--foreground);
+  --sn-stylekit-editor-background-color: var(--sn-stylekit-background-color);
+  --sn-stylekit-editor-foreground-color: var(--sn-stylekit-foreground-color);
+  --sn-stylekit-background-color: var(--background);
+  --sn-stylekit-foreground-color: var(--foreground);
+  --sn-stylekit-border-color: var(--darker-background-border);
+  /* border */
+  --sn-stylekit-contrast-background-color: var(--current-line);
+  /* selected-background */
+  --sn-stylekit-contrast-foreground-color: var(--foreground);
+  --sn-stylekit-contrast-border-color: var(--footer-border);
+  --sn-stylekit-secondary-background-color: var(--secondary-background);
+  --sn-stylekit-secondary-foreground-color: var(--foreground);
+  --sn-stylekit-secondary-border-color: var(--darker-background-border);
+  --sn-stylekit-secondary-contrast-background-color: var(--current-line);
+  --sn-stylekit-secondary-contrast-foreground-color: var(--foreground);
+  --sn-stylekit-secondary-contrast-border-color: var(--foreground);
+  --sn-stylekit-paragraph-text-color: var(--foreground);
+  --sn-desktop-titlebar-bg-color: var(--background);
+  --sn-desktop-titlebar-border-color: var(--comment);
+  --sn-desktop-titlebar-ui-color: var(--foreground);
+  --sn-desktop-titlebar-ui-hover-color: var(--highlight-color);
+  --sn-stylekit-scrollbar-track-border-color: var(--comment);
+  --sn-stylekit-scrollbar-thumb-color: var(--scrollbar);
+  /* scrollbar */
+  --sn-stylekit-grey-5: var(--highlight-color);
+  --sn-stylekit-grey-4-opacity-variant: var(--current-line);
+
+  --sn-stylekit-passive-color-4: #0e0c11;
+  --sn-stylekit-passive-color-4-opacity-variant: #0000003d;
+  --sn-stylekit-passive-color-3: #3d4367;
+  --sn-stylekit-passive-color-5: #080507;
+
+  --text-selection-color: var(--sn-stylekit-info-contrast-color);
+  --text-selection-background-color: #2c57b1;
+  --navigation-item-selected-background-color: #2a2f36;
+
+  --color-prettylights-syntax-comment: #8b949e;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #c9d1d9;
+  --color-prettylights-syntax-markup-bold: #c9d1d9;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+}
+
+/* main */
+button.bg-info,
+button.active\:bg-info:active {
+  background-color: var(--green);
+}
+
+button.border-info,
+button.active\:border-info:active {
+  border-color: var(--green);
+}
+
+button.bg-danger,
+button.active\:bg-danger:active {
+  background-color: var(--danger-background);
+}
+
+button.border-danger,
+button.active\:border-danger:active {
+  border-color: var(--danger-background);
+}
+
+button.text-danger {
+  color: var(--danger-background);
+}
+
+div[role=search] button[role=checkbox] {
+  border-color: transparent;
+}
+
+div[role=search] button[role=checkbox]:hover {
+  background-color: #2a2e36;
+  border-color: #2a2e36;
+}
+
+div[role=search] button.bg-info[role=checkbox] {
+  background-color: #21262d;
+  border-color: #21262d;
+}
+
+#navigation-content svg.text-info,
+#navigation-content svg.text-warning {
+  color: var(--grey);
+}
+
+@media screen and (hover: hover) {
+  #items-column .content-list-item:hover {
+    background-color: #2a2f36;
+  }
+}
+
+/* advanced-markdown-editor */
+#sn-advanced-markdown-editor .editor-toolbar button {
+  color: var(--grey) !important;
+}
+
+#sn-advanced-markdown-editor .editor-toolbar,
+#sn-advanced-markdown-editor .editor-toolbar.fullscreen {
+  background-color: var(--sn-stylekit-secondary-background-color)
+}
+
+#sn-advanced-markdown-editor .codemirror-line::selection,
+.codemirror-line>span::selection,
+.codemirror-line>span>span::selection {
+  color: var(--text-selection-color) !important;
+  background: var(--text-selection-background-color) !important;
+}
+
+#sn-advanced-markdown-editor .codemirror .cm-link {
+  color: var(--link);
+}
+
+#sn-advanced-markdown-editor .codemirror .cm-string {
+  color: var(--color-prettylights-syntax-string);
+}
+
+#sn-advanced-markdown-editor .codemirror .cm-comment {
+  color: var(--color-prettylights-syntax-constant);
+  background: transparent;
+}
+
+#sn-advanced-markdown-editor .codemirror .cm-formatting-code-block {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+#sn-advanced-markdown-editor .codemirror .cm-formatting-code,
+#sn-advanced-markdown-editor .codemirror .cm-formatting-code+.cm-comment {
+  background: var(--sn-stylekit-contrast-background-color);
+  color: var(--color-prettylights-syntax-variable);
+}
+
+/* code-editor */
+body.sn-component .cm-s-default .cm-string {
+  color: var(--color-prettylights-syntax-string);
+}
+
+body.sn-component .cm-s-default .cm-def,
+body.sn-component .cm-s-default .cm-atom {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+body.sn-component .cm-s-default .cm-keyword {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+body.sn-component .cm-s-default .cm-quote {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+body.sn-component .cm-s-default .cm-comment {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+body.sn-component .cm-s-default .cm-link {
+  color: var(--link);
+}
+
+body.sn-component .sk-app-bar {
+  color: #666;
+}
+
+body.sn-component #language-select {
+  background-color: var(--secondary-background);
+  color: #666;
+  border-color: var(--sn-stylekit-border-color);
+  outline: none;
+}
+
+/* plus-editor */
+#plus-editor label kbd {
+  background-color: var(--sn-stylekit-background-color);
+}
+
+/* standard-sheets */
+.k-animation-container .k-menu-group>.k-state-focused,
+.k-menu>.k-state-focused {
+  background-color: #eaeaea;
+  color: #333;
+}
+
+.sn-component .sk-panel .sk-panel-footer .left {
+  color: var(--foreground);
+}
