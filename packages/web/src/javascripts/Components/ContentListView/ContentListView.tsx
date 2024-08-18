@@ -147,7 +147,7 @@ const ContentListView = forwardRef<HTMLDivElement, Props>(
       innerRef,
     ])
 
-    const icon = selectedTag?.title.startsWith('#') ? selectedTag?.iconString : 'folder'
+    const icon = (selectedTag?.iconString === 'hashtag' && !selectedTag?.title.startsWith('#')) ? 'folder' : selectedTag?.iconString
 
     const isFilesSmartView = useMemo(() => navigationController.isInFilesView, [navigationController.isInFilesView])
 
