@@ -138,7 +138,7 @@ export class FeaturesService
   }
 
   initializeFromDisk(): void {
-    console.log('initializeFromDisk')
+    // console.log('initializeFromDisk')
     this.onlineRoles = this.storage.getValue<string[]>(StorageKey.UserRoles, undefined, [])
     // this.offlineRoles = this.storage.getValue<string[]>(StorageKey.OfflineUserRoles, undefined, [])
     this.offlineRoles = ['PRO_USER']
@@ -146,7 +146,7 @@ export class FeaturesService
   }
 
   async handleEvent(event: InternalEventInterface): Promise<void> {
-    console.log('handleEvent')
+    // console.log('handleEvent')
     switch (event.type) {
       case ApiServiceEvent.MetaReceived: {
         if (!this.sync) {
@@ -231,8 +231,7 @@ export class FeaturesService
   }
 
   public async setOfflineFeaturesCode(code: string): Promise<SetOfflineFeaturesFunctionResponse> {
-    console.log('setOfflineFeaturesCode')
-    console.log(code)
+    // console.log('setOfflineFeaturesCode')
     if (code) {
       return this.downloadOfflineRoles({} as SNFeatureRepo)
     } else {
@@ -264,19 +263,19 @@ export class FeaturesService
   }
 
   private getOfflineRepo(): SNFeatureRepo | undefined {
-    console.log('getOfflineRepo')
+    // console.log('getOfflineRepo')
     // const repos = this.items.getItems(ContentType.TYPES.ExtensionRepo) as SNFeatureRepo[]
     // return repos.filter((repo) => repo.migratedToOfflineEntitlements)[0]
     return {} as SNFeatureRepo
   }
 
   public hasOfflineRepo(): boolean {
-    console.log('hasOfflineRepo')
+    // console.log('hasOfflineRepo')
     return this.getOfflineRepo() != undefined
   }
 
   public async deleteOfflineFeatureRepo(): Promise<void> {
-    console.log('deleteOfflineFeatureRepo')
+    // console.log('deleteOfflineFeatureRepo')
     const repo = this.getOfflineRepo()
 
     if (repo) {
@@ -286,7 +285,7 @@ export class FeaturesService
   }
 
   parseOfflineEntitlementsCode(code: string): OfflineSubscriptionEntitlements | ClientDisplayableError {
-    console.log('parseOfflineEntitlementsCode')
+    // console.log('parseOfflineEntitlementsCode')
     try {
       const activationCodeWithoutSpaces = code.replace(/\s/g, '')
       const decodedData = this.crypto.base64Decode(activationCodeWithoutSpaces)
@@ -303,7 +302,7 @@ export class FeaturesService
   }
 
   private async downloadOfflineRoles(repo: SNFeatureRepo): Promise<SetOfflineFeaturesFunctionResponse> {
-    console.log('downloadOfflineRoles')
+    // console.log('downloadOfflineRoles')
     // const result = await this.api.downloadOfflineFeaturesFromRepo({
     //   repo,
     // })
@@ -323,7 +322,7 @@ export class FeaturesService
   }
 
   public async migrateFeatureRepoToOfflineEntitlements(featureRepos: SNFeatureRepo[] = []): Promise<void> {
-    console.log('migrateFeatureRepoToOfflineEntitlements')
+    // console.log('migrateFeatureRepoToOfflineEntitlements')
     // const usecase = new MigrateFeatureRepoToOfflineEntitlementsUseCase(this.mutator)
     // const updatedRepos = await usecase.execute({ featureRepos, prodOfflineFeaturesUrl: this.PROD_OFFLINE_FEATURES_URL })
 
