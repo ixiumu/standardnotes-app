@@ -36,6 +36,7 @@ export class NativeFeatureIdentifier extends ValueObject<NativeFeatureIdentifier
 
     SheetsEditor: 'org.standardnotes.standard-sheets',
     TokenVaultEditor: 'org.standardnotes.token-vault',
+    MarkdownEditor: 'org.standardnotes.markdown-editor',
 
     Clipper: 'org.standardnotes.clipper',
 

@@ -32,5 +32,18 @@ export function IframeEditors(): IframeComponentFeatureDescription[] {
     availableInRoles: [RoleName.NAMES.PlusUser, RoleName.NAMES.ProUser],
   })
 
-  return [tokenvault, spreadsheets]
+  const markdown = FillIframeEditorDefaults({
+    name: 'Markdown',
+    identifier: NativeFeatureIdentifier.TYPES.MarkdownEditor,
+    note_type: NoteType.Markdown,
+    file_type: 'md',
+    interchangeable: false,
+    permission_name: PermissionName.MarkdownEditor,
+    description:
+      'Markdown is a lightweight markup language for creating formatted text using a plain-text editor.',
+    thumbnail_url: '',
+    availableInRoles: [RoleName.NAMES.CoreUser, RoleName.NAMES.PlusUser, RoleName.NAMES.ProUser],
+  })
+
+  return [tokenvault, spreadsheets, markdown]
 }

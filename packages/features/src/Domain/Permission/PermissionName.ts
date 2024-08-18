@@ -25,6 +25,7 @@ export enum PermissionName {
   PlainEditor = 'editor:plain',
   DeprecatedPlusEditor = 'editor:plus',
   SheetsEditor = 'editor:sheets',
+  MarkdownEditor = 'editor:markdown',
   SignInAlerts = 'server:sign-in-alerts',
   SmartFilters = 'app:smart-filters',
   SolarizedDarkTheme = 'theme:solarized-dark',
