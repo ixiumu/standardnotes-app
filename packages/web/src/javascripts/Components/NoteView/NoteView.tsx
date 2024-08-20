@@ -793,6 +793,10 @@ class NoteView extends AbstractComponent<NoteViewProps, State> {
     this.setState({ editorFocused: false })
   }
 
+  onIfreamBlur = () => {
+    this.setState({ editorFocused: false })
+  }
+
   toggleConflictResolutionModal = () => {
     this.setState((state) => ({
       showConflictResolutionModal: !state.showConflictResolutionModal,
@@ -974,6 +978,8 @@ class NoteView extends AbstractComponent<NoteViewProps, State> {
                 onLoad={this.onEditorComponentLoad}
                 requestReload={this.editorComponentViewerRequestsReload}
                 readonly={this.state.readonly}
+                onFocus={this.onEditorFocus}
+                onBlur={this.onIfreamBlur}
               />
             </div>
           )}

@@ -7,7 +7,7 @@ import {
   ComponentInterface,
   SubscriptionManagerEvent,
 } from '@standardnotes/snjs'
-import { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState, FocusEvent } from 'react'
 import { observer } from 'mobx-react-lite'
 import OfflineRestricted from '@/Components/ComponentView/OfflineRestricted'
 import UrlMissing from '@/Components/ComponentView/UrlMissing'
@@ -22,6 +22,8 @@ interface Props {
   onLoad?: () => void
   readonly?: boolean
   usedInModal?: boolean
+  onFocus?: () => void
+  onBlur?: () => void
 }
 
 /**
@@ -36,6 +38,8 @@ const IframeFeatureView: FunctionComponent<Props> = ({
   onLoad,
   componentViewer,
   requestReload,
+  onFocus,
+  onBlur,
   readonly = false,
   usedInModal = false,
 }) => {
@@ -185,6 +189,17 @@ const IframeFeatureView: FunctionComponent<Props> = ({
       unregisterDesktopObserver?.()
     }
   }, [application, requestReload, componentViewer, uiFeature])
+
+  useEffect(() => {
+    const messageHandler = (event: MessageEvent) => {
+      onFocus && event.data.action === 'focus' && onFocus()
+      onBlur && event.data.action === 'blur' && onBlur()
+    }
+    window.addEventListener('message', messageHandler)
+    return () => {
+      window.removeEventListener('message', messageHandler)
+    }
+  }, [onFocus, onBlur])
 
   const sandboxAttributes = useMemo(() => {
     const attributes = [
